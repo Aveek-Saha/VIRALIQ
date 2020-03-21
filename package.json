@@ -47,7 +47,8 @@
     },
     "linux": {
       "icon": "build/icons",
-      "category": "Utility"
+      "category": "Utility",
+      "target": "AppImage"
     }
   },
   "dependencies": {
