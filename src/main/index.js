@@ -1,4 +1,6 @@
 import { app, BrowserWindow } from 'electron'
+let { PythonShell } = require('python-shell')
+const path = require('path');
 
 /**
  * Set `__static` path to static files in production
@@ -46,6 +48,15 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+var filename = path.join(__static, 'scripts', 'test.py');
+// console.log(filename);
+
+PythonShell.run(filename, null, function (err, results) {
+  if (err) throw err;
+  // results is an array consisting of messages collected during execution
+  console.log('results: %j', results);
+});
 
 /**
  * Auto Updater
