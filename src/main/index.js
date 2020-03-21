@@ -52,11 +52,11 @@ app.on('activate', () => {
 var filename = path.join(__static, 'scripts', 'test.py');
 // console.log(filename);
 
-PythonShell.run(filename, null, function (err, results) {
-  if (err) throw err;
-  // results is an array consisting of messages collected during execution
-  console.log('results: %j', results);
-});
+// PythonShell.run(filename, null, function (err, results) {
+//   if (err) throw err;
+//   // results is an array consisting of messages collected during execution
+//   console.log('results: %j', results);
+// });
 
 /**
  * Auto Updater
