@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <Main></Main>
+    <div class="container">
+          <Main></Main>
+    </div>
   </div>
 </template>
 

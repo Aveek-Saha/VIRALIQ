@@ -52,8 +52,13 @@
     }
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.27",
+    "@fortawesome/free-regular-svg-icons": "^5.12.1",
+    "@fortawesome/free-solid-svg-icons": "^5.12.1",
+    "@fortawesome/vue-fontawesome": "^0.1.9",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.7.0",
+    "electron-json-storage": "^4.1.8",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.1",
     "python-shell": "^1.0.8",
