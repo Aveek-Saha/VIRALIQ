@@ -1,4 +1,4 @@
-# viraliq
+# VIdeo RetrevAL through Image Queries
 
 <img src ="https://github.com/Aveek-Saha/VIRALIQ/workflows/CI/badge.svg?style=for-the-badge">
 
