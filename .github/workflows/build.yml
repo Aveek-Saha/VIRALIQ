@@ -28,7 +28,8 @@ jobs:
         node-version: 12
 
     - name: Temporarily fix electron-builder
-      run: sed -i 's/\^\[\\w/\^\[.\\w/g' node_modules/builder-util/out/util.js
+      run: |
+        sed -i '' 's/\^\[\\w/\^\[.\\w/g' node_modules/builder-util/out/util.js
       shell: bash
 
     - name: Build/release Electron app
