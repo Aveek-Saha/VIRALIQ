@@ -1,6 +1,6 @@
 # VIdeo RetrevAL through Image Queries
 
-<img src ="https://github.com/Aveek-Saha/VIRALIQ/workflows/CI/badge.svg?style=for-the-badge">
+<img src ="https://github.com/Aveek-Saha/VIRALIQ/workflows/CD/badge.svg?style=for-the-badge">
 
 #### Build Setup
 
