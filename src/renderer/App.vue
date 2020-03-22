@@ -1,20 +1,20 @@
 <template>
   <div id="app">
     <div class="container-fluid">
-          <Main></Main>
+          <primary></primary>
     </div>
   </div>
 </template>
 
 <script>
-  import Main from '@/components/Main'
+  import Primary from '@/components/Primary'
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
 
   export default {
     name: 'viraliq',
     components: {
-      Main
+      Primary
     }
   }
 </script>

@@ -64,7 +64,7 @@ const storage = require('electron-json-storage');
 const shell = remote.shell;
 
   export default {
-    name: 'main',
+    name: 'primary',
     components: {  },
     data() {
       return {
