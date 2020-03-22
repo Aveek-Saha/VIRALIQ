@@ -22,9 +22,9 @@
           <b-list-group>
             <b-list-group-item 
             button
-            @click="showVideo"
             class="d-flex justify-content-between align-items-center"
-            v-for="(item , index) in list" :key="index"> 
+            v-for="(item , index) in list" :key="index"
+            @click="showVideo(item.file)"> 
               {{ item.name }} 
               <b-badge variant="primary" pill>{{ item.rank }}</b-badge>
             </b-list-group-item>
@@ -78,16 +78,21 @@ const shell = remote.shell;
       this.dummyData()
     },
     methods: {
-      showVideo () {
-        shell.showItemInFolder
+      showVideo (file) {
+        shell.showItemInFolder(path.join(this.directory, file))
+        // console.log(filepath)
       },
       dummyData () {
         for(var i=0; i<5; i++){
+          // var fp = path.join(this.directory, "text.txt")
           this.list.push({
             name: "Cras justo odio",
-            rank: Math.floor((Math.random() * 10) + 1)
+            rank: Math.floor((Math.random() * 10) + 1),
+            file: "text.txt"
           })
         }
+        console.log(this.list);
+        
 
         this.list.sort((a, b) => { return b.rank - a.rank; })
         // this
