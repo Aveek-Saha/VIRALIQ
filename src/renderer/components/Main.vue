@@ -11,26 +11,28 @@
       ></b-form-file>
       <br> <br>
       <div class="form-inline">
-        <button class="btn btn-outline-dark" @click="folderSelect"><font-awesome-icon icon="folder-open" ></font-awesome-icon>&nbsp; Video Folder</button>&nbsp;&nbsp;
+        <button class="btn btn-outline-dark" @click="folderSelect"><font-awesome-icon icon="video" ></font-awesome-icon>&nbsp; Video Folder</button>&nbsp;&nbsp;
 
         <div v-if="directory!=''" ><font-awesome-icon :icon="['far', 'folder']"></font-awesome-icon> {{directory}}</div>
       </div>
 
       <br>
-      <b-card-group deck>
-        <b-card header="Best matches">
-          <b-list-group>
-            <b-list-group-item 
-            button
-            class="d-flex justify-content-between align-items-center"
+      <div class="card" >
+        <div class="card-header">
+          <h5> 
+            Best matches &nbsp; 
+            <!-- <span class="align-middle"><font-awesome-icon icon="sort-down" size="lg"></font-awesome-icon></span> -->
+          </h5>
+        </div>
+          <div class="list-group list-group-flush">
+            <button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
             v-for="(item , index) in list" :key="index"
-            @click="showVideo(item.file)"> 
+            @click="showVideo(item.file)">
               {{ item.name }} 
-              <b-badge variant="primary" pill>{{ item.rank }}</b-badge>
-            </b-list-group-item>
-          </b-list-group>
-        </b-card>
-      </b-card-group>
+              <span class="badge badge-primary badge-pill"> {{ item.rank }} </span>
+            </button>
+          </div>
+      </div>
     </div>
     
     <!-- <input type="file" @change="onFileChange" /> -->
@@ -45,7 +47,7 @@
 
       <br>
 
-      <button class="btn btn-outline-success btn-lg">Start Search</button>
+      <button class="btn btn-outline-success" :disabled="filePath == null || directory == ''">Start Search <font-awesome-icon icon="search" ></font-awesome-icon></button>
     </div>
     
     
@@ -86,7 +88,7 @@ const shell = remote.shell;
         for(var i=0; i<5; i++){
           // var fp = path.join(this.directory, "text.txt")
           this.list.push({
-            name: "Cras justo odio",
+            name: "Video" + i,
             rank: Math.floor((Math.random() * 10) + 1),
             file: "text.txt"
           })
@@ -147,5 +149,8 @@ const shell = remote.shell;
 #preview img {
   max-width: 100%;
   max-height: auto;
+}
+font-awesome-icon {
+  vertical-align: middle;
 }
 </style>
