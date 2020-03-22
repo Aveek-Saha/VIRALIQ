@@ -17,14 +17,20 @@
       </div>
 
       <br>
-
-      <b-list-group>
-        <b-list-group-item>Cras justo odio</b-list-group-item>
-        <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
-        <b-list-group-item>Morbi leo risus</b-list-group-item>
-        <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
-        <b-list-group-item>Vestibulum at eros</b-list-group-item>
-      </b-list-group>
+      <b-card-group deck>
+        <b-card header="Best matches">
+          <b-list-group>
+            <b-list-group-item 
+            button
+            @click="showVideo"
+            class="d-flex justify-content-between align-items-center"
+            v-for="(item , index) in list" :key="index"> 
+              {{ item.name }} 
+              <b-badge variant="primary" pill>{{ item.rank }}</b-badge>
+            </b-list-group-item>
+          </b-list-group>
+        </b-card>
+      </b-card-group>
     </div>
     
     <!-- <input type="file" @change="onFileChange" /> -->
@@ -32,11 +38,14 @@
       {{ file ? file.name : '' }}
     </div> -->
     <!-- <br> -->
-    <div class="col">
+    <div class="col text-center">
       <div id="preview">
         <img v-if="url" :src="url" />
-
       </div>
+
+      <br>
+
+      <button class="btn btn-outline-success btn-lg">Start Search</button>
     </div>
     
     
@@ -50,6 +59,7 @@ const fs = require('fs');
 const path = require('path');
 const { remote } = require('electron')
 const storage = require('electron-json-storage');
+const shell = remote.shell;
 
   export default {
     name: 'main',
@@ -59,13 +69,30 @@ const storage = require('electron-json-storage');
         directory: "",
         file: null,
         url: path.join(__static, "placeholder.jpg"),
-        filePath: null
+        filePath: null,
+        list: []
       }
     },
     created() {
-      this.checkDir()
+      this.checkDir(),
+      this.dummyData()
     },
     methods: {
+      showVideo () {
+        shell.showItemInFolder
+      },
+      dummyData () {
+        for(var i=0; i<5; i++){
+          this.list.push({
+            name: "Cras justo odio",
+            rank: Math.floor((Math.random() * 10) + 1)
+          })
+        }
+
+        this.list.sort((a, b) => { return b.rank - a.rank; })
+        // this
+        
+      },
       folderSelect () {
         remote.dialog.showOpenDialog({
           properties: ['openDirectory'],
