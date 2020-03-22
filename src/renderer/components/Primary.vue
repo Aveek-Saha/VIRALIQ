@@ -47,7 +47,10 @@
 
       <br>
 
-      <button class="btn btn-outline-success" :disabled="filePath == null || directory == ''">Start Search <font-awesome-icon icon="search" ></font-awesome-icon></button>
+      <button class="btn btn-outline-success" 
+      :disabled="filePath == null || directory == ''"
+      @click="dummyData"
+      >Start Search <font-awesome-icon icon="search" ></font-awesome-icon></button>
     </div>
     
     
@@ -76,8 +79,8 @@ const shell = remote.shell;
       }
     },
     created() {
-      this.checkDir(),
-      this.dummyData()
+      this.checkDir()
+      // this.dummyData()
     },
     methods: {
       showVideo (file) {
@@ -93,8 +96,6 @@ const shell = remote.shell;
             file: "text.txt"
           })
         }
-        console.log(this.list);
-        
 
         this.list.sort((a, b) => { return b.rank - a.rank; })
         // this
