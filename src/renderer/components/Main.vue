@@ -1,34 +1,53 @@
 <template>
-  <div id="wrapper">
-    <b-form-file
-      v-model="file"
-      :state="Boolean(file)"
-      @input="onFileChange"
-      accept="image/*"
-      placeholder="Choose a file or drop it here..."
-      drop-placeholder="Drop file here..."
-    ></b-form-file>
+  <div class="row  justify-content-start">
+    <div class="col col-8">
+      <b-form-file
+        v-model="file"
+        :state="Boolean(file)"
+        @input="onFileChange"
+        accept="image/*"
+        placeholder="Choose an image or drop it here..."
+        drop-placeholder="Drop image here..."
+      ></b-form-file>
+      <br> <br>
+      <div class="form-inline">
+        <button class="btn btn-outline-dark" @click="folderSelect"><font-awesome-icon icon="folder-open" ></font-awesome-icon>&nbsp; Video Folder</button>&nbsp;&nbsp;
+
+        <div v-if="directory!=''" ><font-awesome-icon :icon="['far', 'folder']"></font-awesome-icon> {{directory}}</div>
+      </div>
+
+      <br>
+
+      <b-list-group>
+        <b-list-group-item>Cras justo odio</b-list-group-item>
+        <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+        <b-list-group-item>Morbi leo risus</b-list-group-item>
+        <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
+        <b-list-group-item>Vestibulum at eros</b-list-group-item>
+      </b-list-group>
+    </div>
+    
     <!-- <input type="file" @change="onFileChange" /> -->
-    <div>
+    <!-- <div>
       {{ file ? file.name : '' }}
-    </div>
-    <br>
-    
-    <div id="preview">
-      <img v-if="url" :src="url" />
-    </div>
-    
-     <div class="form-inline">
-      <div v-if="directory!=''" ><font-awesome-icon :icon="['far', 'folder']"></font-awesome-icon> {{directory}}</div>&nbsp;&nbsp;
+    </div> -->
+    <!-- <br> -->
+    <div class="col">
+      <div id="preview">
+        <img v-if="url" :src="url" />
 
-      <button class="btn btn-outline-dark" @click="folderSelect"><font-awesome-icon icon="folder-open" ></font-awesome-icon>&nbsp; Video Folder</button>
-
-     </div>
+      </div>
+    </div>
+    
+    
+    
+    
   </div>
 </template>
 
 <script>
 const fs = require('fs');
+const path = require('path');
 const { remote } = require('electron')
 const storage = require('electron-json-storage');
 
@@ -39,7 +58,7 @@ const storage = require('electron-json-storage');
       return {
         directory: "",
         file: null,
-        url: null,
+        url: path.join(__static, "placeholder.jpg"),
         filePath: null
       }
     },
@@ -94,7 +113,7 @@ const storage = require('electron-json-storage');
 }
 
 #preview img {
-  max-width: 20vw;
-  max-height: 20vh;
+  max-width: 100%;
+  max-height: auto;
 }
 </style>
