@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 let { PythonShell } = require('python-shell')
 const path = require('path');
 
@@ -53,11 +53,20 @@ app.on('activate', () => {
 var filename = path.join(__static, 'scripts', 'test.py');
 // console.log(filename);
 
-// PythonShell.run(filename, null, function (err, results) {
-//   if (err) throw err;
-//   // results is an array consisting of messages collected during execution
-//   console.log('results: %j', results);
-// });
+ipcMain.on('run-script', (event, arg) => {
+  console.log(arg)
+
+  PythonShell.run(filename, { mode: 'json' }, function (err, results) {
+    if (err) throw err;
+    // results is an array consisting of messages collected during execution
+    // console.log('results: %j', results);
+    
+    event.sender.send('data', results[0])
+
+  });
+
+})
+
 
 /**
  * Auto Updater

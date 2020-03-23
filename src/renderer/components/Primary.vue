@@ -49,7 +49,7 @@
 
       <button class="btn btn-outline-success" 
       :disabled="filePath == null || directory == ''"
-      @click="dummyData"
+      @click="runScript"
       >Start Search <font-awesome-icon icon="search" ></font-awesome-icon></button>
     </div>
     
@@ -62,7 +62,7 @@
 <script>
 const fs = require('fs');
 const path = require('path');
-const { remote } = require('electron')
+const { remote, ipcRenderer } = require('electron')
 const storage = require('electron-json-storage');
 const shell = remote.shell;
 
@@ -75,14 +75,28 @@ const shell = remote.shell;
         file: null,
         url: path.join(__static, "placeholder.jpg"),
         filePath: null,
-        list: []
+        list: [],
+        arg: ""
       }
     },
     created() {
-      this.checkDir()
+      this.checkDir(),
+      this.setListener()
       // this.dummyData()
     },
     methods: {
+      setListener () {
+        ipcRenderer.on('data', (event, arg) => {
+          // console.log(arg)
+          this.arg = arg
+        })
+      },
+      runScript () {
+        ipcRenderer.send('run-script', {
+          videoDir: this.directory,
+          imgPath: this.url
+        })
+      },
       showVideo (file) {
         shell.showItemInFolder(path.join(this.directory, file))
         // console.log(filepath)
