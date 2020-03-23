@@ -55,8 +55,12 @@ var filename = path.join(__static, 'scripts', 'test.py');
 
 ipcMain.on('run-script', (event, arg) => {
   console.log(arg)
+  let options = {
+    mode: 'json',
+    args: [arg.videoDir, arg.imgPath]
+  };
 
-  PythonShell.run(filename, { mode: 'json' }, function (err, results) {
+  PythonShell.run(filename, options, function (err, results) {
     if (err) throw err;
     // results is an array consisting of messages collected during execution
     // console.log('results: %j', results);

@@ -87,8 +87,8 @@ const shell = remote.shell;
     methods: {
       setListener () {
         ipcRenderer.on('data', (event, arg) => {
-          // console.log(arg)
-          this.arg = arg
+          console.log(arg)
+          // this.arg = arg
         })
       },
       runScript () {
