@@ -7,7 +7,7 @@ import os
 
 import torch
 
-from img2vec_keras import Img2Vec
+from image_to_vec import Img2Vec
 img2vec = Img2Vec()
 
 C, H, W = 3, 224, 224
@@ -31,9 +31,8 @@ def extract_frames(video, dst):
                         stdout=ffmpeg_log, stderr=ffmpeg_log)
 
 
-def extract_feats(params, model, load_image_fn):
+def extract_feats(params):
     global C, H, W
-    model.eval()
 
     dir_fc = params['output_dir']
     if not os.path.isdir(dir_fc):
@@ -53,7 +52,7 @@ def extract_feats(params, model, load_image_fn):
         
         image_list = sorted(glob.glob(os.path.join(dst, '*.jpg')))
         samples = np.round(np.linspace(
-            0, len(image_list) - 1, int(video_length.stdout[:2]) * params['frames_per_sec']))
+            0, len(image_list) - 1, int(float((video_length.stdout[:2]))) * params['frames_per_sec']))
         
         
         image_list = [image_list[int(sample)] for sample in samples]
@@ -73,6 +72,6 @@ def extract_feats(params, model, load_image_fn):
 
 def video_to_image_feats(video_path, feats_path, frames_per_sec):
     
-    params = {'output_dir':feats_path, 'video_path':video_path, 'model':'resnet50', 'frames_per_sec':frames_per_sec}
+    params = {'output_dir':feats_path, 'video_path':video_path, 'model':'resnet152', 'frames_per_sec':frames_per_sec}
     
     extract_feats(params)

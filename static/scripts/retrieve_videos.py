@@ -1,5 +1,5 @@
 from sklearn.metrics.pairwise import cosine_similarity
-from img2vec_keras import Img2Vec
+from image_to_vec import Img2Vec
 import numpy as np
 import glob
 import os
@@ -32,11 +32,22 @@ def get_video_ranks(query_image, embeds_path):
 
 def main():
     
-    query_image_path = "queries/cheetah.png"
+    query_image_path = "queries/violin.jpg"
     query_image = img2vec.get_vec(query_image_path).reshape(1, -1)
     
-    video_ranks = get_video_ranks(query_image, "data/embeds/resnet50")
+    video_ranks = get_video_ranks(query_image, "testdata/embeds/resnet152")
     
-    print(video_ranks)
+    return video_ranks
 
-main()
+    
+
+vr = main()
+
+
+ranks = []
+for i in sorted(vr) : 
+    ranks.append((i, vr[i]))
+    
+ranks.sort(key = lambda x: x[1], reverse = True)
+
+    

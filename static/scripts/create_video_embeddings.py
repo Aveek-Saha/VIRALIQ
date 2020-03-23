@@ -10,7 +10,7 @@ from video_to_image_feats import video_to_image_feats
 def get_video_embedding(feats_path):
     vex = np.load(feats_path)
     
-    n_clus = len(vex)//10
+    n_clus = len(vex)//5
     
     kmeans = KMeans(n_clusters=n_clus, random_state=0).fit(vex)
     centers = kmeans.cluster_centers_
@@ -45,7 +45,7 @@ def create_video_embeddings(feats_path, embeds_path):
         np.save(os.path.join(embeds_path, video_id), embedding)
 
       
-video_to_image_feats("data/train-video", "data/feats/resnet50", 2)
+video_to_image_feats("testdata/train-video", "testdata/feats/resnet152", 2)
 
-create_video_embeddings("data/feats/resnet50", "data/embeds/resnet50")
+create_video_embeddings("testdata/feats/resnet152", "testdata/embeds/resnet152")
 
