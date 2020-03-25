@@ -25,6 +25,11 @@
           </h5>
         </div>
           <div class="list-group list-group-flush">
+            <div v-if="waiting" class="list-group-item list-group-item-action d-flex justify-content-center">
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
             <button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
             v-for="(item , index) in list" :key="index"
             @click="showVideo(item.file)">
@@ -76,7 +81,7 @@ const shell = remote.shell;
         url: path.join(__static, "placeholder.jpg"),
         filePath: null,
         list: [],
-        arg: ""
+        waiting: false
       }
     },
     created() {
@@ -86,12 +91,15 @@ const shell = remote.shell;
     },
     methods: {
       setListener () {
+        var that = this
         ipcRenderer.on('data', (event, arg) => {
           console.log(arg)
+          that.waiting = false
           // this.arg = arg
         })
       },
       runScript () {
+        this.waiting = true
         ipcRenderer.send('run-script', {
           videoDir: this.directory,
           imgPath: this.url
