@@ -36,7 +36,7 @@ def extract_feats(params):
 
     dir_fc = params['output_dir']
     if not os.path.isdir(dir_fc):
-        os.mkdir(dir_fc)
+        os.makedirs(dir_fc)
     print("save video feats to %s" % (dir_fc))
     video_list = glob.glob(os.path.join(params['video_path'], '*.mp4'))
     for video in tqdm(video_list):

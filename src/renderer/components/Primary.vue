@@ -97,6 +97,12 @@ const shell = remote.shell;
           that.waiting = false
           // this.arg = arg
         })
+
+        ipcRenderer.on('emb-made', (event, arg) => {
+          console.log(arg)
+          // that.waiting = false
+          // this.arg = arg
+        })
       },
       runScript () {
         this.waiting = true
@@ -130,6 +136,10 @@ const shell = remote.shell;
         }, names => {
           console.log('selected directory:' + names[0]);
           this.directory = names[0]
+          ipcRenderer.send('create-emb', {
+            videoDir: this.directory,
+            imgPath: this.url
+          })
           storage.set('directory', { dir: this.directory }, function(error) {
             if (error) throw error;
           });

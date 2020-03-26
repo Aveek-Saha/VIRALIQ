@@ -71,6 +71,54 @@ ipcMain.on('run-script', (event, arg) => {
 
 })
 
+var vidEmb = path.join(__static, 'scripts', 'create_video_embeddings.py');
+
+
+ipcMain.on('create-emb', (event, arg) => {
+  console.log(arg)
+  let options = {
+    mode: 'text',
+    args: [arg.videoDir, arg.imgPath]
+  };
+
+  // PythonShell.run(vidEmb, options, function (err, results) {
+  //   if (err) throw err;
+  //   // results is an array consisting of messages collected during execution
+  //   // console.log('results: %j', results);
+
+  //   event.sender.send('emb-made', results[0])
+
+  // });
+
+  var myPythonScript = path.join(__static, 'scripts', 'create_video_embeddings.py');
+  // Provide the path of the python executable, if python is available as environment variable then you can use only "python"
+  var pythonExecutable = "python";
+
+  // Function to convert an Uint8Array to a string
+  var uint8arrayToString = function (data) {
+    return String.fromCharCode.apply(null, data);
+  };
+
+  const spawn = require('child_process').spawn;
+  const scriptExecution = spawn(pythonExecutable, [myPythonScript, arg.videoDir, arg.imgPath]);
+
+  // Handle normal output
+  scriptExecution.stdout.on('data', (data) => {
+    console.log(uint8arrayToString(data));
+  });
+
+  // Handle error output
+  scriptExecution.stderr.on('data', (data) => {
+    // As said before, convert the Uint8Array to a readable string.
+    console.log(uint8arrayToString(data));
+  });
+
+  scriptExecution.on('exit', (code) => {
+    console.log("Process quit with code : " + code);
+  });
+
+})
+
 
 /**
  * Auto Updater

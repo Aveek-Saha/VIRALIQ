@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.cluster import KMeans
 from tqdm import tqdm
 import os
+import sys
 import glob
 
 from video_to_image_feats import video_to_image_feats
@@ -45,7 +46,9 @@ def create_video_embeddings(feats_path, embeds_path):
         np.save(os.path.join(embeds_path, video_id), embedding)
 
       
-video_to_image_feats(os.path.join("data", "train-video"), os.path.join("data", "feats", "resnet50"), 2)
+video_to_image_feats(sys.argv[0], os.path.join("data", "feats", "resnet50"), 2)
 
 create_video_embeddings(os.path.join("data", "feats", "resnet50"), os.path.join("data", "embeds", "resnet50"))
+
+print("Complete")
 
