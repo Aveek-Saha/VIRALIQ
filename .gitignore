@@ -8,5 +8,5 @@ npm-debug.log
 npm-debug.log.*
 thumbs.db
 !.gitkeep
-data/
-static/scripts/__pycache__/
+data/*
+static/scripts/__pycache__/*
