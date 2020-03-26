@@ -15,7 +15,7 @@ def get_video_ranks(query_image, embeds_path):
     
     for video_feats in tqdm(video_list):
         
-        video_id = video_feats.split("/")[-1].split(".")[0]
+        video_id = video_feats.split(os.path.sep)[-1].split(".")[0]
         video_embedding = np.load(video_feats)
         
         similarities = np.zeros((len(video_embedding)))
@@ -32,10 +32,10 @@ def get_video_ranks(query_image, embeds_path):
 
 def main():
     
-    query_image_path = "queries/violin.jpg"
+    query_image_path = os.path.join("queries", "moon.png")
     query_image = img2vec.get_vec(query_image_path).reshape(1, -1)
     
-    video_ranks = get_video_ranks(query_image, "testdata/embeds/resnet152")
+    video_ranks = get_video_ranks(query_image, os.path.join("data", "embeds", "resnet50"))
     
     return video_ranks
 
@@ -49,5 +49,6 @@ for i in sorted(vr) :
     ranks.append((i, vr[i]))
     
 ranks.sort(key = lambda x: x[1], reverse = True)
+print(ranks)
 
     

@@ -13,7 +13,7 @@ class Img2Vec(object):
 
     def __init__(self):
         
-        model = resnet.ResNet152(weights='imagenet')
+        model = resnet.ResNet50(weights='imagenet')
         layer_name = 'avg_pool'
         self.intermediate_layer_model = Model(inputs=model.input, 
                                               outputs=model.get_layer(layer_name).output)

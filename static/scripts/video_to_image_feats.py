@@ -16,17 +16,17 @@ C, H, W = 3, 224, 224
 def extract_frames(video, dst):
     with open(os.devnull, "w") as ffmpeg_log:
         if os.path.exists(dst):
-            print(" cleanup: " + dst + "/")
+            print(" cleanup: " + dst + os.path.sep)
             shutil.rmtree(dst)
         os.makedirs(dst)
-        print('{0}/%06d.jpg'.format(dst))
+        print('{0}\%06d.jpg'.format(dst))
         video_to_frames_command = ["ffmpeg",
                                    # (optional) overwrite output file if it exists
                                    '-y',
                                    '-i', video,  # input file
                                    '-vf', "scale=400:300",  # input file
                                    '-qscale:v', "2",  # quality for JPEG
-                                   '{0}/%06d.jpg'.format(dst)]
+                                   '{0}\%06d.jpg'.format(dst)]
         subprocess.call(video_to_frames_command,
                         stdout=ffmpeg_log, stderr=ffmpeg_log)
 
@@ -40,7 +40,7 @@ def extract_feats(params):
     print("save video feats to %s" % (dir_fc))
     video_list = glob.glob(os.path.join(params['video_path'], '*.mp4'))
     for video in tqdm(video_list):
-        video_id = video.split("/")[-1].split(".")[0]
+        video_id = video.split(os.path.sep)[-1].split(".")[0]
         dst = params['model'] + '_' + video_id
         extract_frames(video, dst)
 
@@ -72,6 +72,6 @@ def extract_feats(params):
 
 def video_to_image_feats(video_path, feats_path, frames_per_sec):
     
-    params = {'output_dir':feats_path, 'video_path':video_path, 'model':'resnet152', 'frames_per_sec':frames_per_sec}
+    params = {'output_dir':feats_path, 'video_path':video_path, 'model':'resnet50', 'frames_per_sec':frames_per_sec}
     
     extract_feats(params)

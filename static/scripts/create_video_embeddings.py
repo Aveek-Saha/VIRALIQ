@@ -40,12 +40,12 @@ def create_video_embeddings(feats_path, embeds_path):
     feats_list = glob.glob(os.path.join(feats_path, '*.npy'))
     
     for video_feats in tqdm(feats_list):
-        video_id = video_feats.split("/")[-1]
+        video_id = video_feats.split(os.path.sep)[-1]
         embedding = get_video_embedding(video_feats)
         np.save(os.path.join(embeds_path, video_id), embedding)
 
       
-video_to_image_feats("testdata/train-video", "testdata/feats/resnet152", 2)
+video_to_image_feats(os.path.join("data", "train-video"), os.path.join("data", "feats", "resnet50"), 2)
 
-create_video_embeddings("testdata/feats/resnet152", "testdata/embeds/resnet152")
+create_video_embeddings(os.path.join("data", "feats", "resnet50"), os.path.join("data", "embeds", "resnet50"))
 
