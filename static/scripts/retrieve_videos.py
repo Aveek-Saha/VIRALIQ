@@ -3,6 +3,7 @@ from image_to_vec import Img2Vec
 import numpy as np
 import glob
 import os
+import sys
 from tqdm import tqdm
 
 img2vec = Img2Vec()
@@ -32,7 +33,7 @@ def get_video_ranks(query_image, embeds_path):
 
 def main():
     
-    query_image_path = os.path.join("queries", "moon.png")
+    query_image_path = sys.argv[0]
     query_image = img2vec.get_vec(query_image_path).reshape(1, -1)
     
     video_ranks = get_video_ranks(query_image, os.path.join("data", "embeds", "resnet50"))
