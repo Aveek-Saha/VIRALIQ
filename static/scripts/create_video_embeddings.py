@@ -7,6 +7,7 @@ import glob
 
 from video_to_image_feats import video_to_image_feats
 
+root = os.path.join(os.path.expanduser('~'), ".viraliq")
 
 def get_video_embedding(feats_path):
     vex = np.load(feats_path)
@@ -45,10 +46,10 @@ def create_video_embeddings(feats_path, embeds_path):
         embedding = get_video_embedding(video_feats)
         np.save(os.path.join(embeds_path, video_id), embedding)
 
-      
-video_to_image_feats(sys.argv[0], os.path.join("data", "feats", "resnet50"), 2)
 
-create_video_embeddings(os.path.join("data", "feats", "resnet50"), os.path.join("data", "embeds", "resnet50"))
+video_to_image_feats(sys.argv[1], os.path.join(root, "data", "feats", "resnet50"), 2)
+
+create_video_embeddings(os.path.join(root, "data", "feats", "resnet50"), os.path.join(root, "data", "embeds", "resnet50"))
 
 print("Complete")
 

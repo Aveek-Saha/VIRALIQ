@@ -8,6 +8,8 @@ from tqdm import tqdm
 
 img2vec = Img2Vec()
 
+root = os.path.join(os.path.expanduser('~'), ".viraliq")
+
 def get_video_ranks(query_image, embeds_path):
     
     video_list = glob.glob(os.path.join(embeds_path, '*.npy'))
@@ -33,10 +35,10 @@ def get_video_ranks(query_image, embeds_path):
 
 def main():
     
-    query_image_path = sys.argv[0]
+    query_image_path = sys.argv[2]
     query_image = img2vec.get_vec(query_image_path).reshape(1, -1)
     
-    video_ranks = get_video_ranks(query_image, os.path.join("data", "embeds", "resnet50"))
+    video_ranks = get_video_ranks(query_image, os.path.join(root, "data", "embeds", "resnet50"))
     
     return video_ranks
 

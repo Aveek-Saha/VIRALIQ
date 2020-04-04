@@ -12,6 +12,7 @@ img2vec = Img2Vec()
 
 C, H, W = 3, 224, 224
 
+root = os.path.join(os.path.expanduser('~'), ".viraliq")
 
 def extract_frames(video, dst):
     with open(os.devnull, "w") as ffmpeg_log:
@@ -36,12 +37,13 @@ def extract_feats(params):
 
     dir_fc = params['output_dir']
     if not os.path.isdir(dir_fc):
-        os.makedirs(dir_fc)
+        os.mkdir(dir_fc)
     print("save video feats to %s" % (dir_fc))
     video_list = glob.glob(os.path.join(params['video_path'], '*.mp4'))
+    print(video_list)
     for video in tqdm(video_list):
         video_id = video.split(os.path.sep)[-1].split(".")[0]
-        dst = params['model'] + '_' + video_id
+        dst = root + os.sep + params['model'] + '_' + video_id
         extract_frames(video, dst)
 
         video_length = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
