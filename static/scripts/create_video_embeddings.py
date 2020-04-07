@@ -51,5 +51,5 @@ video_to_image_feats(sys.argv[1], os.path.join(root, "data", "feats", "resnet50"
 
 create_video_embeddings(os.path.join(root, "data", "feats", "resnet50"), os.path.join(root, "data", "embeds", "resnet50"))
 
-print("Complete")
+# print("Complete")
 

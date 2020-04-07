@@ -104,13 +104,19 @@ ipcMain.on('create-emb', (event, arg) => {
 
   // Handle normal output
   scriptExecution.stdout.on('data', (data) => {
-    console.log(uint8arrayToString(data));
+    var out = uint8arrayToString(data)
+    // if (out.startsWith("Total"))
+    //   console.log(out.split(',')[1]);
+    // else if (out.startsWith("Finished"))
+    //   console.log(out.split(',')[1]);
+    console.log(out);
+    
   });
 
   // Handle error output
   scriptExecution.stderr.on('data', (data) => {
     // As said before, convert the Uint8Array to a readable string.
-    console.log(uint8arrayToString(data));
+    // console.log(uint8arrayToString(data));
   });
 
   scriptExecution.on('exit', (code) => {

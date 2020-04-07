@@ -17,10 +17,10 @@ root = os.path.join(os.path.expanduser('~'), ".viraliq")
 def extract_frames(video, dst):
     with open(os.devnull, "w") as ffmpeg_log:
         if os.path.exists(dst):
-            print(" cleanup: " + dst + os.path.sep)
+            # print(" cleanup: " + dst + os.path.sep)
             shutil.rmtree(dst)
         os.makedirs(dst)
-        print('{0}\%06d.jpg'.format(dst))
+        # print('{0}\%06d.jpg'.format(dst))
         video_to_frames_command = ["ffmpeg",
                                    # (optional) overwrite output file if it exists
                                    '-y',
@@ -38,10 +38,13 @@ def extract_feats(params):
     dir_fc = params['output_dir']
     if not os.path.isdir(dir_fc):
         os.mkdir(dir_fc)
-    print("save video feats to %s" % (dir_fc))
+    # print("save video feats to %s" % (dir_fc))
     video_list = glob.glob(os.path.join(params['video_path'], '*.mp4'))
-    print(video_list)
-    for video in tqdm(video_list):
+    # print(video_list)
+    count = 0
+    # print('Total,', len(video_list))
+    for video in video_list:
+        count+= 1
         video_id = video.split(os.path.sep)[-1].split(".")[0]
         dst = root + os.sep + params['model'] + '_' + video_id
         extract_frames(video, dst)
@@ -71,6 +74,7 @@ def extract_feats(params):
         np.save(outfile, img_feats)
         # cleanup
         shutil.rmtree(dst)
+        print('Finished,', i/len(video_list))
 
 def video_to_image_feats(video_path, feats_path, frames_per_sec):
     
