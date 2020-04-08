@@ -64,17 +64,6 @@ var uint8arrayToString = function (data) {
 
 ipcMain.on('run-script', (event, arg) => {
   console.log(arg)
-  // let options = {
-  //   mode: 'json',
-  //   args: [arg.videoDir, arg.imgPath]
-  // };
-
-  // PythonShell.run(filename, options, function (err, results) {
-  //   if (err) throw err;
-  //   // results is an array consisting of messages collected during execution
-  //   // console.log('results: %j', results);
-    
-  //   event.sender.send('data', results[0])
 
   const scriptExecution = spawn(pythonExecutable, [vidSearch, arg.imgPath]);
 
@@ -96,8 +85,10 @@ ipcMain.on('run-script', (event, arg) => {
   });
 
   scriptExecution.on('exit', (code) => {
+    console.log(event);
+    
     console.log("Process quit with code : " + code);
-    ipcMain.emit('data', {
+    event.sender.send('data', {
       'status': 'Finished',
       'code': code
     })
@@ -130,7 +121,7 @@ ipcMain.on('create-emb', (event, arg) => {
 
   scriptExecution.on('exit', (code) => {
     console.log("Process quit with code : " + code);
-    ipcMain.emit('emb-made', {
+    event.sender.send('emb-made', {
       'status': 'Finished',
       'code': code
     })

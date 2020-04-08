@@ -53,6 +53,6 @@ for i in sorted(vr) :
     ranks.append((i, vr[i]))
     
 ranks.sort(key = lambda x: x[1], reverse = True)
-print('ranks ', ranks)
+print('ranks', ",".join([x + ":" + str(y) for (x, y) in ranks]))
 
     
