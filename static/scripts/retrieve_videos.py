@@ -16,7 +16,7 @@ def get_video_ranks(query_image, embeds_path):
 
     video_ranks = dict()
     
-    for video_feats in tqdm(video_list):
+    for video_feats in video_list:
         
         video_id = video_feats.split(os.path.sep)[-1].split(".")[0]
         video_embedding = np.load(video_feats)
@@ -35,7 +35,8 @@ def get_video_ranks(query_image, embeds_path):
 
 def main():
     
-    query_image_path = sys.argv[2]
+    query_image_path = sys.argv[1]
+    print(query_image_path)
     query_image = img2vec.get_vec(query_image_path).reshape(1, -1)
     
     video_ranks = get_video_ranks(query_image, os.path.join(root, "data", "embeds", "resnet50"))
@@ -52,6 +53,6 @@ for i in sorted(vr) :
     ranks.append((i, vr[i]))
     
 ranks.sort(key = lambda x: x[1], reverse = True)
-print(ranks)
+print('ranks ', ranks)
 
     

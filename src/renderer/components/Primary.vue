@@ -108,7 +108,7 @@ const shell = remote.shell;
         this.waiting = true
         ipcRenderer.send('run-script', {
           videoDir: this.directory,
-          imgPath: this.url
+          imgPath: this.filePath
         })
       },
       showVideo (file) {
@@ -140,6 +140,7 @@ const shell = remote.shell;
             videoDir: this.directory,
             imgPath: this.url
           })
+          // this.waiting = true
           storage.set('directory', { dir: this.directory }, function(error) {
             if (error) throw error;
           });
