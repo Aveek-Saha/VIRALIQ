@@ -41,7 +41,7 @@ def create_video_embeddings(feats_path, embeds_path):
     
     feats_list = glob.glob(os.path.join(feats_path, '*.npy'))
     
-    for video_feats in tqdm(feats_list):
+    for video_feats in feats_list:
         video_id = video_feats.split(os.path.sep)[-1]
         embedding = get_video_embedding(video_feats)
         np.save(os.path.join(embeds_path, video_id), embedding)

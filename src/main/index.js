@@ -124,11 +124,13 @@ ipcMain.on('create-emb', (event, arg) => {
   // Handle normal output
   scriptExecution.stdout.on('data', (data) => {
     var out = uint8arrayToString(data)
-    // if (out.startsWith("Total"))
-    //   console.log(out.split(',')[1]);
-    // else if (out.startsWith("Finished"))
-    //   console.log(out.split(',')[1]);
-    console.log(out);
+    if (out.startsWith("Finished")){
+      var done = parseFloat(out.split(',')[1].replace(/[\n\r]/g, '')) * 100;
+      event.sender.send('progress', {
+        'status': done.toFixed(3)
+      })
+    }
+    // console.log(out);
   });
 
   // Handle error output

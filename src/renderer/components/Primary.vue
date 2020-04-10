@@ -15,13 +15,19 @@
 
         <div v-if="directory!=''" ><font-awesome-icon :icon="['far', 'folder']"></font-awesome-icon> {{directory}}</div>
       </div>
-
+      <br>
+      <div class="row mb-1"  v-if="showProg">
+        <div class=" col-sm-3 col-lg-2">Embeddings:</div>
+        <div class="col-sm-9 col-lg-10 pt-1">
+          <b-progress height="1.2rem" :value="progress" :max="100" show-progress 
+          :variant="variant" :animated="animated" :striped="striped"></b-progress>
+        </div>
+      </div>
       <br>
       <div class="card" >
         <div class="card-header">
           <h5> 
             Best matches &nbsp; 
-            <!-- <span class="align-middle"><font-awesome-icon icon="sort-down" size="lg"></font-awesome-icon></span> -->
           </h5>
         </div>
           <div class="list-group list-group-flush">
@@ -81,7 +87,12 @@ const shell = remote.shell;
         url: path.join(__static, "placeholder.jpg"),
         filePath: null,
         list: [],
-        waiting: false
+        waiting: false,
+        progress: 0,
+        showProg: false,
+        variant: "primary",
+        animated: true,
+        striped: true,
       }
     },
     created() {
@@ -101,6 +112,17 @@ const shell = remote.shell;
 
         ipcRenderer.on('emb-made', (event, arg) => {
           console.log(arg)
+          // that.progress = 0
+          that.animated = false
+          that.striped = false
+          that.variant = "success"
+          // that.waiting = false
+          // this.arg = arg
+        })
+
+        ipcRenderer.on('progress', (event, arg) => {
+          console.log(arg)
+          that.progress = arg.status
           // that.waiting = false
           // this.arg = arg
         })
@@ -138,6 +160,11 @@ const shell = remote.shell;
         }, names => {
           console.log('selected directory:' + names[0]);
           this.directory = names[0]
+          this.progress = 0
+          this.variant = "primary"
+          this.striped = true
+          this.animated = true
+          this.showProg = true
           ipcRenderer.send('create-emb', {
             videoDir: this.directory,
             imgPath: this.url
