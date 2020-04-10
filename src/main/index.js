@@ -70,8 +70,26 @@ ipcMain.on('run-script', (event, arg) => {
   // Handle normal output
   scriptExecution.stdout.on('data', (data) => {
     var out = uint8arrayToString(data)
-    // if (out.startsWith("Total"))
-    //   console.log(out.split(',')[1]);
+    if (out.startsWith("ranks ")){
+      var arr = out.slice("ranks ".length).replace(/[\n\r]/g, '').split(',')
+      var res = []
+      arr.forEach(ele => {
+        var e = ele.split(':')
+        // res[e[0]] = parseFloat(e[1])
+        res.push({
+          "name": e[0], 
+          "rank": parseFloat(e[1]).toFixed(3),
+          "file": "null"
+        })
+      });
+      res.sort((a, b) => { return b.rank - a.rank; })
+      console.log(res);
+
+      event.sender.send('data', {
+        "ranks": res
+      })
+      
+    }
     // else if (out.startsWith("Finished"))
     //   console.log(out.split(',')[1]);
     console.log(out);
@@ -88,10 +106,10 @@ ipcMain.on('run-script', (event, arg) => {
     console.log(event);
     
     console.log("Process quit with code : " + code);
-    event.sender.send('data', {
-      'status': 'Finished',
-      'code': code
-    })
+    // event.sender.send('data', {
+    //   'status': 'Finished',
+    //   'code': code
+    // })
 
   })
 

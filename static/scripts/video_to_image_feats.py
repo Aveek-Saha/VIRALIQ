@@ -74,7 +74,7 @@ def extract_feats(params):
         np.save(outfile, img_feats)
         # cleanup
         shutil.rmtree(dst)
-        print('Finished,', i/len(video_list))
+        print('Finished,', count/len(video_list))
 
 def video_to_image_feats(video_path, feats_path, frames_per_sec):
     

@@ -5,6 +5,7 @@ import glob
 import os
 import sys
 from tqdm import tqdm
+import time
 
 img2vec = Img2Vec()
 
@@ -38,8 +39,12 @@ def main():
     query_image_path = sys.argv[1]
     print(query_image_path)
     query_image = img2vec.get_vec(query_image_path).reshape(1, -1)
+
+    x1 = time.time()
     
     video_ranks = get_video_ranks(query_image, os.path.join(root, "data", "embeds", "resnet50"))
+
+    x2 = time.time()
     
     return video_ranks
 

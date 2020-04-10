@@ -95,6 +95,7 @@ const shell = remote.shell;
         ipcRenderer.on('data', (event, arg) => {
           console.log(arg)
           that.waiting = false
+          that.list = arg.ranks
           // this.arg = arg
         })
 
@@ -106,6 +107,7 @@ const shell = remote.shell;
       },
       runScript () {
         this.waiting = true
+        this.list = []
         ipcRenderer.send('run-script', {
           videoDir: this.directory,
           imgPath: this.filePath
