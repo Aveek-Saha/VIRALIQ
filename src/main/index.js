@@ -103,7 +103,7 @@ ipcMain.on('run-script', (event, arg) => {
   });
 
   scriptExecution.on('exit', (code) => {
-    console.log(event);
+    // console.log(event);
     
     console.log("Process quit with code : " + code);
     // event.sender.send('data', {
