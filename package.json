@@ -62,6 +62,7 @@
     "jquery": "^3.4.1",
     "popper.js": "^1.16.1",
     "python-shell": "^1.0.8",
+    "socket.io": "^2.3.0",
     "vue": "^2.6.11",
     "vue-electron": "^1.0.6"
   },
