@@ -20,9 +20,9 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
+    height: 550,
     useContentSize: true,
-    width: 1000,
+    width: 800,
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false
@@ -51,7 +51,7 @@ app.on('activate', () => {
 })
 
 const spawn = require('child_process').spawn;
-const io = require('socket.io-client')
+// const io = require('socket.io-client')
 
 var pythonExecutable = "python";
 var vidSearch = path.join(__static, 'scripts', 'retrieve_videos.py');
@@ -69,93 +69,93 @@ var uint8arrayToString = function (data) {
 
 
 
-const socket = io('http://localhost:8080');
+// const socket = io('http://localhost:8080');
 
-socket.on("connect", function (data) {
-  console.log("Connected")
-})
+// socket.on("connect", function (data) {
+//   console.log("Connected")
+// })
 
 
-const scriptExecution = spawn(pythonExecutable, [server]);
+// const scriptExecution = spawn(pythonExecutable, [server]);
 
-// Handle normal output
-scriptExecution.stdout.on('data', (data) => {
-  var out = uint8arrayToString(data)
-  console.log(out);
+// // Handle normal output
+// scriptExecution.stdout.on('data', (data) => {
+//   var out = uint8arrayToString(data)
+//   console.log(out);
 
-});
+// });
 
-// Handle error output
-scriptExecution.stderr.on('data', (data) => {
-  // As said before, convert the Uint8Array to a readable string.
-  console.log(uint8arrayToString(data));
-});
+// // Handle error output
+// scriptExecution.stderr.on('data', (data) => {
+//   // As said before, convert the Uint8Array to a readable string.
+//   console.log(uint8arrayToString(data));
+// });
 
-scriptExecution.on('exit', (code) => {
-  // console.log(event);
+// scriptExecution.on('exit', (code) => {
+//   // console.log(event);
 
-  console.log("Process quit with code : " + code);
-})
+//   console.log("Process quit with code : " + code);
+// })
 
 ipcMain.on('run-script', (event, arg) => {
   console.log(arg)
 
-  // const scriptExecution = spawn(pythonExecutable, [vidSearch, arg.imgPath]);
+  const scriptExecution = spawn(pythonExecutable, [vidSearch, arg.imgPath]);
 
-  // // Handle normal output
-  // scriptExecution.stdout.on('data', (data) => {
-  //   var out = uint8arrayToString(data)
-  //   if (out.startsWith("ranks ")){
-  //     var arr = out.slice("ranks ".length).replace(/[\n\r]/g, '').split(',')
-  //     var res = []
-  //     arr.forEach(ele => {
-  //       var e = ele.split(':')
-  //       // res[e[0]] = parseFloat(e[1])
-  //       res.push({
-  //         "name": e[0], 
-  //         "rank": parseFloat(e[1]).toFixed(3),
-  //         "file": "null"
-  //       })
-  //     });
-  //     res.sort((a, b) => { return b.rank - a.rank; })
-  //     console.log(res);
+  // Handle normal output
+  scriptExecution.stdout.on('data', (data) => {
+    var out = uint8arrayToString(data)
+    if (out.startsWith("ranks ")){
+      var arr = out.slice("ranks ".length).replace(/[\n\r]/g, '').split(',')
+      var res = []
+      arr.forEach(ele => {
+        var e = ele.split(':')
+        // res[e[0]] = parseFloat(e[1])
+        res.push({
+          "name": e[0], 
+          "rank": parseFloat(e[1]).toFixed(3),
+          "file": "null"
+        })
+      });
+      res.sort((a, b) => { return b.rank - a.rank; })
+      console.log(res);
 
-  //     event.sender.send('data', {
-  //       "ranks": res
-  //     })
-      
-  //   }
-  //   // else if (out.startsWith("Finished"))
-  //   //   console.log(out.split(',')[1]);
-  //   console.log(out);
-
-  // });
-
-  // // Handle error output
-  // scriptExecution.stderr.on('data', (data) => {
-  //   // As said before, convert the Uint8Array to a readable string.
-  //   console.log(uint8arrayToString(data));
-  // });
-
-  // scriptExecution.on('exit', (code) => {
-  //   // console.log(event);
-    
-  //   console.log("Process quit with code : " + code);
-  // })
-
-  socket.emit("search", { "input": arg.imgPath })
-  socket.on("ranks", function (data) {
-    console.log("ranks", data)
-    var res = []
-    data['output'].forEach(e => {
-      res.push({
-        "name": e[0],
-        "rank": parseFloat(e[1]).toFixed(3),
-        "file": "null"
+      event.sender.send('data', {
+        "ranks": res
       })
-    });
-    event.sender.send('data', {"ranks": res})
+      
+    }
+    // else if (out.startsWith("Finished"))
+    //   console.log(out.split(',')[1]);
+    console.log(out);
+
+  });
+
+  // Handle error output
+  scriptExecution.stderr.on('data', (data) => {
+    // As said before, convert the Uint8Array to a readable string.
+    console.log(uint8arrayToString(data));
+  });
+
+  scriptExecution.on('exit', (code) => {
+    // console.log(event);
+    
+    console.log("Process quit with code : " + code);
   })
+
+  // socket.emit("search", { "input": arg.imgPath })
+  // socket.on("ranks", function (data) {
+  //   console.log("ranks", data)
+  //   var res = []
+  //   data['output'].forEach(e => {
+  //     res.push({
+  //       "name": e[0],
+  //       "rank": parseFloat(e[1]).toFixed(3),
+  //       "file": "null"
+  //     })
+  //   });
+  //   event.sender.send('data', {"ranks": res})
+  // })
 
   });
   
