@@ -4,14 +4,14 @@ from tensorflow.keras.models import Model
 import numpy as np
 
 
-_IMAGE_NET_TARGET_SIZE = (224, 224)
+IMAGE_NET_TARGET_SIZE = (224, 224)
 
 
 class Img2Vec(object):
 
     def __init__(self):
         
-        model = resnet.ResNet50(weights='imagenet')
+        model = resnet.ResNet152(weights='imagenet')
         layer_name = 'avg_pool'
         self.intermediate_layer_model = Model(inputs=model.input, 
                                               outputs=model.get_layer(layer_name).output)
@@ -22,8 +22,20 @@ class Img2Vec(object):
         :param image_path: path to image on filesystem
         :returns: numpy ndarray
         """
+        images = []
+        for i in image_path:
+            img = image.load_img(i, target_size=IMAGE_NET_TARGET_SIZE)
+            x = image.img_to_array(img)
+            images.append(x)
+        x = np.array(images)
+        x = resnet.preprocess_input(x)
+        intermediate_output = self.intermediate_layer_model.predict(x)
+        
+        return intermediate_output
 
-        img = image.load_img(image_path, target_size=_IMAGE_NET_TARGET_SIZE)
+    def get_vec_single(self, image_path):
+
+        img = image.load_img(image_path, target_size=IMAGE_NET_TARGET_SIZE)
         x = image.img_to_array(img)
         x = np.expand_dims(x, axis=0)
         x = resnet.preprocess_input(x)
