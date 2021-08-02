@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -13,13 +13,25 @@ if (isDev) {
 }
 
 ipcMain.on('folder-select', (event, arg) => {
-    console.log(arg) // prints "ping"
-    event.returnValue = 'pong'
+    let res = openFolderDialog()
+    console.log(res);
+    event.reply('folder-select', res)
   })
+
+function openFolderDialog() {
+    let result = dialog.showOpenDialogSync(win, { properties: ['openDirectory'] })
+    console.log(result);
+    const filePath = result[0];
+    if (filePath) {
+        return filePath
+    }
+}
+
+let win;
 
 function createWindow() {
     // Create the browser window with node integration
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {

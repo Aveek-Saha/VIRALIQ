@@ -1,8 +1,12 @@
 <script>
     const { ipcRenderer } = require("electron");
-    
+
+    ipcRenderer.on("folder-select", (event, arg) => {
+        console.log(arg); // prints "pong"
+    });
+
     function folderselect() {
-        console.log(ipcRenderer.sendSync('folder-select', 'ping'))
+        ipcRenderer.send("folder-select", "ping")
     }
 </script>
 
