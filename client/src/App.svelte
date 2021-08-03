@@ -1,12 +1,14 @@
 <script>
     const { ipcRenderer } = require("electron");
 
+    let progress = 10
+
     ipcRenderer.on("folder-select", (event, arg) => {
-        console.log(arg); // prints "pong"
+        console.log(arg);
     });
 
     function folderselect() {
-        ipcRenderer.send("folder-select", "ping")
+        ipcRenderer.send("folder-select", "ping");
     }
 </script>
 
@@ -19,6 +21,15 @@
                     class="btn btn-outline-primary m-3 align-center"
                     on:click={folderselect}>Select video folder</button
                 >
+            </div>
+            <div class="progress mb-3">
+                <div
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    style="width: {progress}%"
+                />
             </div>
             <div class="card">
                 <div class="card-header">
