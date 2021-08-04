@@ -22,6 +22,13 @@
                     on:click={folderselect}>Select video folder</button
                 >
             </div>
+            <div class="mb-3">
+                <button
+                    type="button"
+                    class="btn btn-outline-primary m-3 align-center"
+                    >Start search</button
+                >
+            </div>
             <div class="progress mb-3">
                 <div
                     class="progress-bar progress-bar-striped progress-bar-animated"
