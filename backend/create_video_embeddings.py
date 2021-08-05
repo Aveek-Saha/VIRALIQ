@@ -99,6 +99,6 @@ feats_path = os.path.join(root, "data", "feats", "resnet152")
 metadata_path = os.path.join(root, "metadata")
 
 
-video_to_image_feats(FOLDER, feats_path, 2)
+# video_to_image_feats(FOLDER, feats_path, 2)
 
 create_video_embeddings(feats_path, metadata_path)

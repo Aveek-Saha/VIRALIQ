@@ -45,7 +45,7 @@ def extract_feats(params):
     video_list = glob.glob(os.path.join(params['video_path'], '*.mp4'))
     # print(video_list)
     count = 0
-    # print('Total,', len(video_list))
+    print('Total,', len(video_list))
     for video in tqdm(video_list):
         count+= 1
         video_id = video.split(os.path.sep)[-1].split(".")[0]
