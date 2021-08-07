@@ -9,10 +9,9 @@ import json
 import re
 import copy
 import sys
+import argparse
 
 from video_to_image_feats import video_to_image_feats
-
-root = os.path.join(os.path.expanduser('~'), ".viraliq")
 
 def create_video_embeddings(feats_path, metadata_path):
     if not os.path.isdir(metadata_path):
@@ -86,10 +85,20 @@ def create_video_embeddings(feats_path, metadata_path):
     np.save(outfile, labels)
 
 
-# video_to_image_feats(os.path.join(os.path.expanduser('~'), "test_video_subset"), os.path.join(root, "data", "feats", "resnet152"), 2)
 
-create_video_embeddings(os.path.join(root, "data", "feats", "resnet152"), os.path.join(root, "metadata"))
+parser = argparse.ArgumentParser(description="""
+This script Will create a video embeddings for your entire database
+""")
+parser.add_argument("--folder", help="Path of the folder containing videos")
 
-# create_video_embeddings(os.path.join(root, "data", "feats", "resnet152"), os.path.join(root, "data", "embeds", "resnet152"))
+args = parser.parse_args()
 
-# print("Complete")
+FOLDER = args.folder
+root = os.path.join(os.path.expanduser('~'), ".viraliq")
+feats_path = os.path.join(root, "data", "feats", "resnet152")
+metadata_path = os.path.join(root, "metadata")
+
+
+# video_to_image_feats(FOLDER, feats_path, 2)
+
+create_video_embeddings(feats_path, metadata_path)

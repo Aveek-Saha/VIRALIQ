@@ -3,7 +3,6 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import Model
 import numpy as np
 
-
 IMAGE_NET_TARGET_SIZE = (224, 224)
 
 

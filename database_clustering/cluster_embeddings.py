@@ -29,7 +29,7 @@ for video_feats in tqdm(feats_list):
     
     embeddings.extend(vex)   
     
-n_clus = 200 
+n_clus = 175 
     
 kmeans = KMeans(n_clusters = n_clus, random_state=0).fit(embeddings)
 centers = kmeans.cluster_centers_
