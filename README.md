@@ -7,10 +7,20 @@
 <!-- 1. Cluster the whole database
 2. Cluster every video separately -->
 
-# Prerequisites
-- ffmpeg
-- tensorflow
-- sklearn
+# Dependencies
+
+## Python dependencies
+All python packages required can be installed from `requirements.txt`
+
+```
+pip install -r requirements.txt
+```
+
+## FFmpeg
+
+FFmpeg is required for extracting frames from videos. Download links can be found [here](https://ffmpeg.org/download.html).
+
+**Note:** Windows users will have to add the FFmpeg bin folder to the PATH variable.
 
 # Instructions for execution
 
