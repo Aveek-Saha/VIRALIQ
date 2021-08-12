@@ -7,22 +7,22 @@
 <!-- 1. Cluster the whole database
 2. Cluster every video separately -->
 
-# Dependencies
+## Dependencies
 
-## Python dependencies
+### Python dependencies
 All python packages required can be installed from `requirements.txt`
 
 ```
 pip install -r requirements.txt
 ```
 
-## FFmpeg
+### FFmpeg
 
 FFmpeg is required for extracting frames from videos. Download links can be found [here](https://ffmpeg.org/download.html).
 
 **Note:** Windows users will have to add the FFmpeg bin folder to the PATH variable.
 
-# Instructions for execution
+## Instructions for execution
 
 1. Create cluster embeddings
 1. Perform image queries
