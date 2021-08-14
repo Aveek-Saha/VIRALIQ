@@ -5,10 +5,7 @@ from tqdm import tqdm
 import numpy as np
 import os
 
-import datetime
-import time
-
-from image_to_vec import Img2Vec
+from .image_to_vec import Img2Vec
 img2vec = Img2Vec()
 
 C, H, W = 3, 224, 224
@@ -45,7 +42,7 @@ def extract_feats(params):
     video_list = glob.glob(os.path.join(params['video_path'], '*.mp4'))
     # print(video_list)
     count = 0
-    print('Total,', len(video_list))
+    print('Total number of videos,', len(video_list))
     for video in tqdm(video_list):
         count+= 1
         video_id = video.split(os.path.sep)[-1].split(".")[0]

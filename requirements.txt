@@ -1,4 +1,4 @@
 tqdm==4.50.2
-numpy==1.21.2
+numpy==1.19.5
 scikit_learn==0.24.2
 tensorflow==2.6.0

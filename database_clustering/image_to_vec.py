@@ -1,3 +1,5 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from tensorflow.keras.applications import resnet
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import Model

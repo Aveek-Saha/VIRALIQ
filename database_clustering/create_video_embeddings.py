@@ -3,15 +3,8 @@ from sklearn.cluster import KMeans
 from tqdm import tqdm
 import os
 import glob
-from image_to_vec import Img2Vec
+# from image_to_vec import Img2Vec
 from sklearn.metrics.pairwise import cosine_similarity
-import json
-import re
-import copy
-import sys
-import argparse
-
-from video_to_image_feats import video_to_image_feats
 
 def create_video_embeddings(feats_path, metadata_path):
     if not os.path.isdir(metadata_path):
@@ -86,19 +79,16 @@ def create_video_embeddings(feats_path, metadata_path):
 
 
 
-parser = argparse.ArgumentParser(description="""
-This script Will create a video embeddings for your entire database
-""")
-parser.add_argument("--folder", help="Path of the folder containing videos")
+# parser = argparse.ArgumentParser(description="""
+# This script Will create a video embeddings for your entire database
+# """)
+# parser.add_argument("--folder", help="Path of the folder containing videos")
 
-args = parser.parse_args()
+# args = parser.parse_args()
 
-FOLDER = args.folder
-root = os.path.join(os.path.expanduser('~'), ".viraliq")
-feats_path = os.path.join(root, "data", "feats", "resnet152")
-metadata_path = os.path.join(root, "metadata")
+# FOLDER = args.folder
 
 
 # video_to_image_feats(FOLDER, feats_path, 2)
 
-create_video_embeddings(feats_path, metadata_path)
+# create_video_embeddings(feats_path, metadata_path)

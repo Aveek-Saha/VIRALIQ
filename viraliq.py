@@ -1,5 +1,13 @@
 import click
-from database_clustering import *
+import os
+from database_clustering.video_to_image_feats import video_to_image_feats
+from database_clustering.create_video_embeddings import create_video_embeddings
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+root = os.path.join(os.path.expanduser('~'), ".viraliq")
+feats_path = os.path.join(root, "data", "feats", "resnet152")
+metadata_path = os.path.join(root, "metadata")
 
 @click.group()
 @click.version_option()
@@ -24,8 +32,9 @@ def cli():
 def cluster(cluster_type, dir):
     click.echo(cluster_type)
     click.echo(click.format_filename(dir))
+    video_to_image_feats(dir, feats_path, 2)
+    create_video_embeddings(feats_path, metadata_path)
 
-    
 
 @click.command()
 @click.argument("img", type=click.Path(exists=True))
