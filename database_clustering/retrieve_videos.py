@@ -1,13 +1,10 @@
 from sklearn.metrics.pairwise import cosine_similarity
-from image_to_vec import Img2Vec
+from .image_to_vec import Img2Vec
 import numpy as np
 import glob
 import os
-import sys
 from tqdm import tqdm
-import time
 import copy
-import argparse
 
 img2vec = Img2Vec()
 
@@ -20,9 +17,11 @@ def remove_duplicates(seq):
     return [x for x in seq if not (x in seen or seen_add(x))]
 
 
-def get_video_ranks(query_image, feats_path, metadata_path):
+def get_video_ranks(query_image_path, feats_path, metadata_path):
 
-    feats_list = glob.glob(os.path.join(feats_path, '*.npy'))[:100]
+    query_image = img2vec.get_vec_single(query_image_path).reshape(1, -1)
+
+    feats_list = glob.glob(os.path.join(feats_path, '*.npy'))
     best_neighbors = np.load(os.path.join(metadata_path, 'neighbours.npy'))
     centers = list(np.load(os.path.join(
         metadata_path, 'centers.npy'), allow_pickle=True))
@@ -66,33 +65,32 @@ def get_video_ranks(query_image, feats_path, metadata_path):
     return rel_videos
 
 
-def main():
-    parser = argparse.ArgumentParser(description="""
-    This script retrieve videos based on an image query
-    """)
-    parser.add_argument("--image", help="Path of the image")
+# def main():
+#     parser = argparse.ArgumentParser(description="""
+#     This script retrieve videos based on an image query
+#     """)
+#     parser.add_argument("--image", help="Path of the image")
 
-    args = parser.parse_args()
+#     args = parser.parse_args()
 
-    IMAGE = args.image
-    query_image_path = IMAGE
-    print(query_image_path)
-    query_image = img2vec.get_vec_single(query_image_path).reshape(1, -1)
+#     IMAGE = args.image
+#     query_image_path = IMAGE
+#     print(query_image_path)
 
-    x1 = time.time()
+#     x1 = time.time()
 
-    video_ranks = get_video_ranks(query_image, os.path.join(
-        root, "data", "feats", "resnet152"), os.path.join(root, "metadata"))
+#     video_ranks = get_video_ranks(query_image_path, os.path.join(
+#         root, "data", "feats", "resnet152"), os.path.join(root, "metadata"))
 
-    x2 = time.time()
+#     x2 = time.time()
 
-    print(x2 - x1)
+#     print(x2 - x1)
 
-    return video_ranks
+#     return video_ranks
 
 
-vr = main()
-print(vr)
+# vr = main()
+# print(vr)
 
 # ranks = []
 # for i in sorted(vr) :

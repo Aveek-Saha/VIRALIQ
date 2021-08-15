@@ -42,7 +42,6 @@ def extract_feats(params):
     video_list = glob.glob(os.path.join(params['video_path'], '*.mp4'))
     # print(video_list)
     count = 0
-    print('Total number of videos,', len(video_list))
     for video in tqdm(video_list):
         count+= 1
         video_id = video.split(os.path.sep)[-1].split(".")[0]
@@ -50,11 +49,11 @@ def extract_feats(params):
         
         extract_frames(video, dst, params['frames_per_sec'])
 
-        video_length = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
-                             "format=duration", "-of",
-                             "default=noprint_wrappers=1:nokey=1", video],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT)
+        # video_length = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
+        #                      "format=duration", "-of",
+        #                      "default=noprint_wrappers=1:nokey=1", video],
+        # stdout=subprocess.PIPE,
+        # stderr=subprocess.STDOUT)
         
         image_list = sorted(glob.glob(os.path.join(dst, '*.jpg')))
         # samples = np.round(np.linspace(
@@ -62,7 +61,7 @@ def extract_feats(params):
         
         # image_list = [image_list[int(sample)] for sample in samples]
             
-        fc_feats = []
+        # fc_feats = []
         frames = []
         for image in image_list:
             frames.append(image)
