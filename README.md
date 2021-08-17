@@ -4,25 +4,36 @@
 
 **VIRALIQ**: **VI**deo Retrev**AL** through **I**mage **Q**ueries
 
-<!-- 1. Cluster the whole database
-2. Cluster every video separately -->
-
 ## Dependencies
 
-### Python dependencies
-All python packages required can be installed from `requirements.txt`
-
-```
-pip install -r requirements.txt
-```
-
 ### FFmpeg
-
 FFmpeg is required for extracting frames from videos. Download links can be found [here](https://ffmpeg.org/download.html).
 
 **Note:** Windows users will have to add the FFmpeg bin folder to the PATH variable.
 
-## Instructions for execution
+## Usage
 
-1. Create cluster embeddings
-1. Perform image queries
+### Install using pip 
+```
+pip install viraliq
+```
+
+### Create embeddings
+
+```
+viraliq cluster "PATH_TO_VIDEO_DIR"
+```
+
+### Search using an image
+
+```
+viraliq search "PATH_TO_VIDEO_DIR" "PATH_TO_IMAGE"
+```
+
+## Citing
+
+If you find VIRALIQ useful please cite the following paper:
+
+```
+Srinivasan, Arvind, Aprameya Bharadwaj, Aveek Saha, and Subramanyam Natarajan. "Graph Based Temporal Aggregation for Video Retrieval." arXiv preprint arXiv:2011.02426 (2020).
+```
