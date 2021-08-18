@@ -5,9 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='viraliq',
-    version='0.1.0',
+    version='0.1.1',
     author="Aveek Saha",
     author_email="aveek.s98@gmail.com",
+    url='https://github.com/Aveek-Saha/VIRALIQ',
     description="Search for videos using an image query.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -16,6 +17,10 @@ setuptools.setup(
     py_modules=['viraliq'],
     install_requires=[
         'Click',
+        'tensorflow==2.6.0',
+        'scikit_learn==0.24.2',
+        'numpy==1.21.2',
+        'tqdm==4.50.2'
     ],
     entry_points={
         'console_scripts': [
