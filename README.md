@@ -12,21 +12,24 @@ FFmpeg is required for extracting frames from videos. Download links can be foun
 
 **Note:** Windows users will have to add the FFmpeg bin folder to the PATH variable.
 
-## Usage
 
-### Install using pip 
+## Installation
+
+Install the package using pip
 ```
 pip install viraliq
 ```
 
-### Create embeddings
+## CLI usage
 
+### Create embeddings
+Create video embeddings
 ```
 viraliq cluster "PATH_TO_VIDEO_DIR"
 ```
 
-### Search using an image
-
+### Search
+Search using an image query
 ```
 viraliq search "PATH_TO_VIDEO_DIR" "PATH_TO_IMAGE"
 ```
