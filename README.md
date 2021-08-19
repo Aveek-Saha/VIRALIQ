@@ -1,5 +1,6 @@
 # Graph Based Temporal Aggregation for Video Retrieval
 
+[![Build/Publish](https://github.com/Aveek-Saha/VIRALIQ/actions/workflows/python-publish.yml/badge.svg)](https://github.com/Aveek-Saha/VIRALIQ/actions/workflows/python-publish.yml)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/graph-based-temporal-aggregation-for-video/video-retrieval-on-msr-vtt)](https://paperswithcode.com/sota/video-retrieval-on-msr-vtt?p=graph-based-temporal-aggregation-for-video)
 
 **VIRALIQ**: **VI**deo Retrev**AL** through **I**mage **Q**ueries
