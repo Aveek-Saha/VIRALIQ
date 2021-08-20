@@ -3,7 +3,9 @@
 [![Build/Publish](https://github.com/Aveek-Saha/VIRALIQ/actions/workflows/python-publish.yml/badge.svg)](https://github.com/Aveek-Saha/VIRALIQ/actions/workflows/python-publish.yml)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/graph-based-temporal-aggregation-for-video/video-retrieval-on-msr-vtt)](https://paperswithcode.com/sota/video-retrieval-on-msr-vtt?p=graph-based-temporal-aggregation-for-video)
 
-**VIRALIQ**: **VI**deo Retrev**AL** through **I**mage **Q**ueries
+**VIRALIQ**: ***VI***deo ***R***etriev***AL*** through ***I***mage ***Q***ueries
+
+If you're looking for just the source code, it can be found on the [`source branch`](https://github.com/Aveek-Saha/VIRALIQ/tree/source).
 
 ## Dependencies
 
